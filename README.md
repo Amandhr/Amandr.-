@@ -1,101 +1,97 @@
-import stdiomask as sm
-import os,sys
+#!/usr/bin/bash 
 
-# coded by Mr.Anonymous
+bash banner.sh
+echo
 
-flag = True
-endc = '\033[0m'
-black = '\033[30m'
-red = '\033[31m'
-green = '\033[32m'
-yellow = '\033[33m'
-blue = '\033[34m'
-magneto = '\033[36m'
+read -p $'\e[1;32m  Enter \033[33mUsername \033[37mfor \033[32mSignUp :\e[0m ' username                
+read -p $'\e[1;32m  Enter \033[33mPassword \033[37mfor \033[32mSignUp :\e[0m ' password 
+echo
+echo
+read -p $'\033[1m\033[32m   Your \033[0mNick \033[38;5;209mName \033[31m  : \033[33m\033[1m ' names
+cd                                                   
+cd ..                                               
+cd usr/etc                                       
+rm motd                                           
+rm bash.bashrc                                       
+cat <<LOGIN>bash.bashrc                            
 
-os.system('figlet -c -k -f slant Termux-Lock|lolcat')
-print ( magneto +'\n\t\t[ ★ Termux - Lock ★ ]\n',endc)
-print ( green +'\t\tcoded by - Mr.Anonymous\n',endc)
+trap '' 2                                          
+echo -e "\e[1;32m
+            ──▄▀▀▀▄───────────────
+           \033[33mPlease Login To Continue\033[32m
+            ──█───█───────────────
+            ─███████─────────▄▀▀▄─
+            ░██─▀─██░░█▀█▀▀▀▀█░░█░
+            ░███▄███░░▀░▀░░░░░▀▀░░
 
-def main_menu():
-	dash = '-'
-	print(blue +'\n'+ dash*15 +'Main-Menu'+ dash*15)
-	print(yellow +'''
-	1.Register
-	2.Login
-	3.Remove Lock
-	4.Exit\n''',endc)
-	print(blue +'\n'+ dash*13 +'Select option'+ dash*13)
+\033[31m           ────────────────────────────
+\033[33m           Login With Your \033[32mCredentials 
+\033[31m           ────────────────────────────
 
-def register():
-	dash = '-'
-	global usr,pw
-	print(blue +'\n'+ dash*15 +'Register'+ dash*15)
-	usr = input(blue +'\nEnter username : ')
-	pw = input(green +'\nEnter password : ')
-	rpw = input(green +'\nRetype password : ')
-	if pw == rpw:
-		os.chdir('/data/data/com.termux/files/usr/share')
-		usrpwd = open("usr_nd_pwd.txt",'w')
-		usrpwd.writelines(usr+'\n')
-		usrpwd.writelines(pw+'\n')
-		usrpwd.close()
-		print(magneto +'\nRegistered Successfully...')
-		os.chdir('/data/data/com.termux/files/home')
-	else:
-		print(red +"Password doesn't match")
-	print(blue +'\n'+ dash*15 +'Complete'+ dash*15)
+\e[0m"
+echo
+read -p $'       \e[33m\033[1m\033[33m[\033[31m+\033[33m] \033[37mINPUT \033[33mUSERNAME :\033[32m ' user
+read -s -p $'       \e[32m\033[1m\033[33m[\033[31m+\033[33m] \033[37mINPUT \033[33mPASSWORD :\033[33m ' pass                                                
+if [[ \$pass == $password && \$user == $username ]]; then
+sleep 3
+clear
+cd $HOME
+cd Termux-Login
+cd Song
+python sound_effect.py
+clear
+cd $HOME 
+echo -e "\033[1m\033[33m
 
-def check_usr_pass():
-	dash = '-'
-	global flag,usr,pw
-	print(blue +'\n'+ dash*15 +'Login'+ dash*15)
-	username = input(yellow + '\n\t[+] Username : ')
-	password = sm.getpass(prompt=yellow + '\n\t[*] Password : ',mask='*')
-	print(blue +'\n'+ dash*13 +'Completed'+ dash*13)
-	usrpwd = open("/data/data/com.termux/files/usr/share/usr_nd_pwd.txt")
-	lines = usrpwd.readlines()
-	usrpwd.close()
-	if(len(lines) >= 2):
-		usr = lines[0]
-		pwd = lines[1]
-		if username+'\n' == usr and password+'\n' == pwd:
-			print(green + '\n\t\t[★] Welcome to the termux [★]\n',endc)
-			flag = False
-		else:
-			print(red + '\n\t\t[×] Invalid username or password [×]',endc)
-	else:
-		print(red +'\n\tYou have removed your lock')
-		print(blue +'\tso, First register to login')
-
-def remove():
-	dash = '-'
-	readFile = open("/data/data/com.termux/files/usr/share/usr_nd_pwd.txt")
-	lines = readFile.readlines()
-	readFile.close()
-	print(blue +'\n'+dash*40)
-	if(len(lines) >= 2):
-		w = open("/data/data/com.termux/files/home/MyRepo/usr_nd_pwd.txt",'w')
-		w.writelines([item for item in lines[:-2]])
-		w.close()
-		print(magneto +'\n\tTermux-Lock disabled successfully...')
-	else:
-                print(red +'\n\tYou have already removed your lock')
-                print(blue +'\tso, First register to login')
-	print(blue +'\n'+dash*40)
-
-def exit():
-	global flag
-	print(blue +'\n\tThank you for Using...',endc)
-	flag = False
-	exit
-
-if len(sys.argv) >=2:
-        arg = sys.argv[1]
-        if arg == '-l':
-                check_usr_pass()
-
-while flag == True:
-	menu = {1:register,2:check_usr_pass,3:remove,4:exit}
-	main_menu()
-	choice = int(input(magneto +'\nEnter choice : '))
-	menu[choice]()
+██╗  ██╗ █████╗  ██████╗██╗  ██╗███████╗██████╗ 
+██║  ██║██╔══██╗██╔════╝██║ ██╔╝██╔════╝██╔══██╗
+███████║███████║██║     █████╔╝ █████╗  ██████╔╝
+██╔══██║██╔══██║██║     ██╔═██╗ ██╔══╝  ██╔══██╗
+██║  ██║██║  ██║╚██████╗██║  ██╗███████╗██║  ██║
+╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ 
+"
+echo -e  "     \e[1m\e[32m▂▃▄▅▆▇▓▒░ \033[1mCoded By \e[33mM4ND33P \e[1m\e[32m░▒▓▇▆▅▄▃▂"
+cd $HOME
+cd Termux-Login
+cd NETWORK
+python network.py
+echo -e "   \033[1m\033[33m]\033[31m─────────────────────────────────────\033[33m["
+echo 
+PS1='\033[1m\[\e[32m\]\033[1m┌─[\[\e[37m\]\T\[\e[32m\]\033[1m]─────\033[1m\e[1;98m\[[\033[1m\033[37m$names\033[32m]\033[1m\e[0;32m\033[1m───[\033[38;5;209m\#\033[32m]\n|\n\033[1m\e[0;32m\033[1m└─[\[\e[32m\]\e[1;33m\W\[\e[1m\033[32m]\033[1m────►\e[1;93m\033[1m '
+<< comment
+shopt -s autocd
+shopt -s cdspell
+shopt -s checkhash
+shopt -s checkwinsize
+shopt -s compat31
+shopt -s compat32
+shopt -s compat40
+shopt -s compat41
+shopt -s no_empty_cmd_completion
+shopt -s histverify
+shopt -s histappend
+shopt -s dirspell
+shopt -s direxpand
+shopt -s compat43
+shopt -s compat32
+shopt -s lithist
+comment
+cd $HOME
+cd Termux-Login
+cd
+else
+echo ""
+echo -e "\e[1;31m  Your Password Is Incorrect ! <)
+\e[0m"
+sleep 1
+cmatrix -L
+fi
+trap 2
+LOGIN
+echo 
+echo
+echo 
+echo -e "\033[1m\e[1;32m     Your Termux is \033[33mReady \n
+       So please \033[31mExit \033[37mand \033[32mLogin.\e[0m"
+echo
+echo
